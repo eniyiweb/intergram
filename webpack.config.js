@@ -28,10 +28,13 @@ module.exports = {
                 'NODE_ENV': JSON.stringify('production')
             }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-                warnings: false
-            }
-        })
-    ]
+const TerserPlugin = require("terser-webpack-plugin");
+
+module.exports = {
+  // ...
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
+  // ...
 };
