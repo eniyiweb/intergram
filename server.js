@@ -5,7 +5,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require("socket.io")(http, {
+  allowEIO3: true // false by default
+});
 
 app.use(express.static('dist', {index: 'demo.html', maxage: '4h'}));
 app.use(bodyParser.json());
@@ -22,9 +24,9 @@ app.post('/hook', function(req, res){
         if (text.startsWith("/start")) {
             console.log("/start chatId " + chatId);
             sendTelegramMessage(chatId,
-                "*Welcome to Intergram* \n" +
-                "Your unique chat id is `" + chatId + "`\n" +
-                "Use it to link between the embedded chat and this telegram chat",
+                "*ÖzenleHandmade Destek Botu!* \n" +
+                "Benzersiz Chat ID'niz: `" + chatId + "`\n" +
+                "Yerleşik sohbet ile bu telegram sohbeti arasında bağlantı kurmak için kullanın",
                 "Markdown");
         } else if (reply) {
             let replyText = reply.text || "";
